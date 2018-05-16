@@ -1,0 +1,19 @@
+{
+  "name": "demo-graphql",
+  "version": "1.0.0",
+  "description": "Demonstrate GraphQL solution",
+  "main": "index.js",
+  "scripts": {
+    "serve-api": "cd api && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qubeyuval/demo-graphql.git"
+  },
+  "author": "Yuval Dagai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qubeyuval/demo-graphql/issues"
+  },
+  "homepage": "https://github.com/qubeyuval/demo-graphql#readme"
+}
