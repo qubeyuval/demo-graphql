@@ -10,12 +10,14 @@
 
 <section>
     <mat-card class="post-list">
+        <h4>User's Posts</h4>
         <app-posts [posts]="(user$ | async)?.posts" (selectionChanged)="onPostSelected($event)"></app-posts>
     </mat-card>
 
     <span class="spacer"></span>
 
     <mat-card class="post">
+        <h4>Post</h4>
         <app-post [post]="selectedPost"></app-post>
     </mat-card>
 </section>

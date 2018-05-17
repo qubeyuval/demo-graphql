@@ -7,6 +7,7 @@ import {
     MatListModule,
     MatGridListModule,
     MatBadgeModule,
+    MatToolbarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -30,7 +31,8 @@ import { UsersModule } from './users/users.module';
         MatCardModule,
         MatListModule,
         MatGridListModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatToolbarModule
     ],
     providers: [],
     bootstrap: [AppComponent]
