@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
-
+import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
 @Component({
     selector: 'app-users',
     template: `
@@ -24,11 +25,13 @@ import { Observable } from 'rxjs';
                 <mat-divider></mat-divider>
             </a>
         </mat-nav-list>
+        <button mat-raised-button (click)="showRawData()">Show Data</button>
     `,
     styles: [`
     :host {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
     mat-nav-list {
         width: 75%;
@@ -46,11 +49,29 @@ import { Observable } from 'rxjs';
 export class UsersComponent implements OnInit {
 
     users$: Observable<any[]>;
+    usersJson = '';
 
-    constructor(private srv: UsersService) { }
+    constructor(
+        private srv: UsersService,
+        private dialog: MatDialog
+    ) { }
 
     ngOnInit() {
         this.users$ = this.srv.getAllUsers();
+
+        this.users$.subscribe(users => {
+            this.usersJson = JSON.stringify(users);
+            console.log(this.usersJson);
+        });
     }
 
+    showRawData() {
+        const dialogRef = this.dialog.open(RawDataDialogComponent, {
+            width: '75vw',
+            height: '75vh',
+            data: {
+                rawData: this.usersJson
+            }
+        });
+    }
 }

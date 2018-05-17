@@ -5,6 +5,7 @@ import {
     MatListModule,
     MatGridListModule,
     MatBadgeModule,
+    MatDialogModule
 } from '@angular/material';
 import { UsersRoutingModule } from './users-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,7 +16,7 @@ import { UserComponent } from './user/user.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './posts/post/post.component';
 import { CommentsComponent } from './comments/comments.component';
-
+import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -24,7 +25,8 @@ import { CommentsComponent } from './comments/comments.component';
         MatCardModule,
         MatListModule,
         MatGridListModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatDialogModule
     ],
     exports: [],
     declarations: [
@@ -32,8 +34,10 @@ import { CommentsComponent } from './comments/comments.component';
         UserComponent,
         PostsComponent,
         PostComponent,
-        CommentsComponent
+        CommentsComponent,
+        RawDataDialogComponent
     ],
+    entryComponents: [RawDataDialogComponent],
     providers: [UsersService],
 })
 export class UsersModule { }
