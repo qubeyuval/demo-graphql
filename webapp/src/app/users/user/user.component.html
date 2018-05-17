@@ -4,6 +4,8 @@
             <mat-card-title>
                 <h2>{{ (user$ | async)?.name }}</h2>
             </mat-card-title>
+            <span class="spacer"></span>
+            <button mat-button routerLink="/users">< Back</button>
         </mat-card-header>
     </mat-card>
 </header>

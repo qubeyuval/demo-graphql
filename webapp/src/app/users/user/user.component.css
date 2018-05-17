@@ -6,7 +6,7 @@ section {
     justify-content: space-between;
 }
 .spacer {
-    flex: 0 0 16px;
+    flex: 1 0 16px;
 }
 section > .post {
     flex: 1 1 70%;
