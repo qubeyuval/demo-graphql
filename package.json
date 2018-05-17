@@ -4,7 +4,8 @@
   "description": "Demonstrate GraphQL solution",
   "main": "index.js",
   "scripts": {
-    "serve-api": "cd api && npm start"
+    "serve-api": "cd api && npm start",
+    "serve-webapp": "cd webapp && npm start"
   },
   "repository": {
     "type": "git",
