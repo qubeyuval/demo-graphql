@@ -19,16 +19,30 @@ export class UsersService {
             .pipe(
                 map((users: any[]) => {
                     return users.map((user, ind) => {
-                        const {id, name, email} = user;
-                        return this.getUserWithPosts({id, name, email, posts: []});
+                        const { id, name, email } = user;
+                        return this.getUserWithPosts({ id, name, email, posts: [] });
                     });
                 }),
                 switchMap(requests => forkJoin(requests))
             );
     }
 
+    getUserById(userId: number): Observable<User> {
+        return this.http.get<any>(`${this.baseUrl}/users/${userId}`)
+            .pipe(
+                switchMap((user: any) => {
+                    const { id, name, email } = user;
+                    return this.getUserWithPosts({ id, name, email, posts: [] });
+                })
+            );
+    }
+
     getUserWithPosts(user: User): Observable<User> {
         return this.http.get<any>(`${this.baseUrl}/users/${user.id}/posts`)
-                    .pipe(map(posts => ({...user, posts})));
+            .pipe(map(posts => ({ ...user, posts })));
+    }
+
+    getCommentsForPost(postId: number) {
+        return this.http.get<any[]>(`${this.baseUrl}/posts/${postId}/comments`);
     }
 }

@@ -1,3 +1,21 @@
-<p>
-  user works!
-</p>
+<header>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h2>{{ (user$ | async)?.name }}</h2>
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+</header>
+
+<section>
+    <mat-card class="post-list">
+        <app-posts [posts]="(user$ | async)?.posts" (selectionChanged)="onPostSelected($event)"></app-posts>
+    </mat-card>
+
+    <span class="spacer"></span>
+
+    <mat-card class="post">
+        <app-post [post]="selectedPost"></app-post>
+    </mat-card>
+</section>

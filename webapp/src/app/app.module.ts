@@ -13,19 +13,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersComponent } from './users/users.component';
 import { HttpClientModule } from '@angular/common/http';
-import { PostsComponent } from './posts/posts.component';
-import { UserComponent } from './users/user/user.component';
+import { UsersModule } from './users/users.module';
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        UsersComponent,
-        PostsComponent,
-        UserComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
+        UsersModule,
         HttpClientModule,
         BrowserAnimationsModule,
         MatButtonModule,

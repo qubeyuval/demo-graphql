@@ -1,0 +1,17 @@
+header {
+    margin-bottom: 16px;
+}
+section {
+    display: flex;
+    justify-content: space-between;
+}
+.spacer {
+    flex: 0 0 16px;
+}
+section > .post {
+    flex: 1 1 70%;
+}
+
+section > .post-list {
+    flex: 1 1 30%;
+}
