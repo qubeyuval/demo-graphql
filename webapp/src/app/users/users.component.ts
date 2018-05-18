@@ -24,7 +24,7 @@ import { StatsService, ViewStats } from '../stats.service';
 
                 <mat-divider></mat-divider>
             </a>
-            <app-view-stats></app-view-stats>
+            <app-view-stats [viewName]="'users-page'"></app-view-stats>
         </mat-nav-list>
     `,
     styles: [`

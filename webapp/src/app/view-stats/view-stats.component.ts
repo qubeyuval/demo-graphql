@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { StatsService, ViewStats } from './../stats.service';
@@ -13,7 +13,8 @@ import { RawDataDialogComponent } from '../raw-data-dialog/raw-data-dialog.compo
 })
 export class ViewStatsComponent implements OnInit {
 
-    // statsInfo$: Observable<ViewStats>;
+    @Input() viewName: string;
+
     statsInfo: ViewStats;
 
     constructor(
@@ -22,9 +23,10 @@ export class ViewStatsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        // this.statsInfo$ = this.stats.viewStatsRest.asObservable();
         this.stats.viewStatsRest.subscribe(stats => {
-            this.statsInfo = stats;
+            if (this.viewName === stats.name) {
+                this.statsInfo = stats;
+            }
         });
     }
 

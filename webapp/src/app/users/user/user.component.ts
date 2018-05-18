@@ -23,26 +23,26 @@ export class UserComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.stats.startCollectingDataRest('user-page');
+        this.stats.startCollectingDataRest('user-posts');
         this.user$ = this.route.paramMap.pipe(
             switchMap((prm: ParamMap) => this.srv.getUserById(+prm.get('id')))
         );
 
         this.user$.subscribe(user => {
             this.stats.setData(user);
-            this.stats.stopCollectingDataRest('user-page');
+            this.stats.stopCollectingDataRest('user-posts');
         });
     }
 
     onPostSelected(post) {
-        this.stats.startCollectingDataRest('comments');
+        this.stats.startCollectingDataRest('post-comments');
         this.srv.getCommentsForPost(post.id)
             .subscribe(comments => {
                 post.comments = comments;
                 this.selectedPost = post;
 
                 this.stats.setData(comments);
-                this.stats.stopCollectingDataRest('comments');
+                this.stats.stopCollectingDataRest('post-comments');
             });
     }
 }
