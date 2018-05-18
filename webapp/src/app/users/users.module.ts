@@ -1,15 +1,8 @@
 import { NgModule } from '@angular/core';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    MatGridListModule,
-    MatBadgeModule,
-    MatDialogModule
-} from '@angular/material';
 import { UsersRoutingModule } from './users-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AngularMaterialModule } from '../angular-material.module';
 import { UsersComponent } from './users.component';
 import { UsersService } from './users.service';
 import { UserComponent } from './user/user.component';
@@ -21,12 +14,7 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
     imports: [
         BrowserModule,
         UsersRoutingModule,
-        MatButtonModule,
-        MatCardModule,
-        MatListModule,
-        MatGridListModule,
-        MatBadgeModule,
-        MatDialogModule
+        AngularMaterialModule
     ],
     exports: [],
     declarations: [

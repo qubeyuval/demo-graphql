@@ -1,19 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatListModule,
-    MatGridListModule,
-    MatBadgeModule,
-    MatToolbarModule
-} from '@angular/material';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersComponent } from './users/users.component';
-import { HttpClientModule } from '@angular/common/http';
+import { RequestCounterInterceptor } from './request-counter-interceptor';
 import { UsersModule } from './users/users.module';
 
 
@@ -27,14 +21,15 @@ import { UsersModule } from './users/users.module';
         UsersModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        MatButtonModule,
-        MatCardModule,
-        MatListModule,
-        MatGridListModule,
-        MatBadgeModule,
-        MatToolbarModule
+        AngularMaterialModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestCounterInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+mat-toolbar {
+    flex: 0 0 64px;
+}
+section {
+    display: block;
+    overflow: auto;
+    flex: 1 1 auto;
+}
+footer {
+    flex: 0 0 36px;
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+

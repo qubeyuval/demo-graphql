@@ -61,7 +61,6 @@ export class UsersComponent implements OnInit {
 
         this.users$.subscribe(users => {
             this.usersJson = users;
-            console.log(this.usersJson);
         });
     }
 
