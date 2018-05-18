@@ -49,7 +49,7 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
 export class UsersComponent implements OnInit {
 
     users$: Observable<any[]>;
-    usersJson = '';
+    usersJson: any;
 
     constructor(
         private srv: UsersService,
@@ -60,7 +60,7 @@ export class UsersComponent implements OnInit {
         this.users$ = this.srv.getAllUsers();
 
         this.users$.subscribe(users => {
-            this.usersJson = JSON.stringify(users);
+            this.usersJson = users;
             console.log(this.usersJson);
         });
     }

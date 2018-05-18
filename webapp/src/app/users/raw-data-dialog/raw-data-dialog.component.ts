@@ -16,5 +16,7 @@ export class RawDataDialogComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.data = JSON.stringify(this.data, null, 2);
+    }
 }
