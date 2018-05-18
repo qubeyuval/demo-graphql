@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 
 import { UsersService } from './users.service';
 import { Observable } from 'rxjs';
-import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
+import { StatsService, ViewStats } from '../stats.service';
 @Component({
     selector: 'app-users',
     template: `
@@ -24,8 +24,8 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
 
                 <mat-divider></mat-divider>
             </a>
+            <app-view-stats></app-view-stats>
         </mat-nav-list>
-        <button mat-raised-button (click)="showRawData()">Show Data</button>
     `,
     styles: [`
     :host {
@@ -49,28 +49,20 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
 export class UsersComponent implements OnInit {
 
     users$: Observable<any[]>;
-    usersJson: any;
+    viewStats: ViewStats;
 
     constructor(
         private srv: UsersService,
-        private dialog: MatDialog
+        private stats: StatsService
     ) { }
 
     ngOnInit() {
+        this.stats.startCollectingDataRest('users-page');
         this.users$ = this.srv.getAllUsers();
 
         this.users$.subscribe(users => {
-            this.usersJson = users;
-        });
-    }
-
-    showRawData() {
-        const dialogRef = this.dialog.open(RawDataDialogComponent, {
-            width: '75vw',
-            height: '75vh',
-            data: {
-                rawData: this.usersJson
-            }
+            this.stats.setData(users);
+            this.stats.stopCollectingDataRest('users-page');
         });
     }
 }

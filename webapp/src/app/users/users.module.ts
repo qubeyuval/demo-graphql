@@ -9,7 +9,7 @@ import { UserComponent } from './user/user.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './posts/post/post.component';
 import { CommentsComponent } from './comments/comments.component';
-import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
+import { ViewStatsComponent } from '../view-stats/view-stats.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -23,9 +23,8 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
         PostsComponent,
         PostComponent,
         CommentsComponent,
-        RawDataDialogComponent
+        ViewStatsComponent
     ],
-    entryComponents: [RawDataDialogComponent],
     providers: [UsersService],
 })
 export class UsersModule { }

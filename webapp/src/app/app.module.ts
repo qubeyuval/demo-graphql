@@ -9,11 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { UsersComponent } from './users/users.component';
 import { RequestCounterInterceptor } from './request-counter-interceptor';
 import { UsersModule } from './users/users.module';
+import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        RawDataDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -21,7 +23,7 @@ import { UsersModule } from './users/users.module';
         UsersModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        AngularMaterialModule
+        AngularMaterialModule,
     ],
     providers: [
         {
@@ -30,6 +32,7 @@ import { UsersModule } from './users/users.module';
             multi: true
         }
     ],
+    entryComponents: [RawDataDialogComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,9 @@
+:host {
+    display: block;
+    background: #3748AC;
+}
+.cell {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
