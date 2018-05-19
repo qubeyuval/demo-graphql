@@ -8,10 +8,8 @@ section {
 .spacer {
     flex: 1 0 16px;
 }
-section > .post {
-    flex: 1 1 70%;
-}
-
-section > .post-list {
-    flex: 1 1 30%;
+section > mat-card {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
 }

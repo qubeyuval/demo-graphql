@@ -1,6 +1,9 @@
 :host {
-    display: block;
+    display: flex;
+    justify-content: space-around;
     background: #3748AC;
+    padding: 16px;
+    height: 36px;
 }
 .cell {
     display: flex;

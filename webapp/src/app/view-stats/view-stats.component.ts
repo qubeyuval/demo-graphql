@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit, Input } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { StatsService, ViewStats } from './../stats.service';
@@ -11,11 +11,12 @@ import { RawDataDialogComponent } from '../raw-data-dialog/raw-data-dialog.compo
     templateUrl: './view-stats.component.html',
     styleUrls: ['./view-stats.component.css']
 })
-export class ViewStatsComponent implements OnInit {
+export class ViewStatsComponent implements OnInit, OnDestroy {
 
     @Input() viewName: string;
 
     statsInfo: ViewStats;
+    subscription: Subscription;
 
     constructor(
         private stats: StatsService,
@@ -23,11 +24,17 @@ export class ViewStatsComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.stats.viewStatsRest.subscribe(stats => {
+        this.subscription = this.stats.viewStatsRest.subscribe(stats => {
             if (this.viewName === stats.name) {
                 this.statsInfo = stats;
             }
         });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     showResponseData() {

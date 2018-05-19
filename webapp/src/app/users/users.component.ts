@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { UsersService } from './users.service';
-import { Observable } from 'rxjs';
 import { StatsService, ViewStats } from '../stats.service';
+import { User } from '../models';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-users',
     template: `
         <mat-nav-list>
             <h3 mat-subheader>Users</h3>
-            <a mat-list-item *ngFor="let user of users$ | async" [routerLink]="[user.id]">
+            <a mat-list-item *ngFor="let user of users" [routerLink]="[user.id]">
                 <div>
                     <strong matLine>{{ user.name }}</strong>
                     <small matLine>{{ user.email }}</small>
@@ -41,15 +42,13 @@ import { StatsService, ViewStats } from '../stats.service';
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-    .spacer {
-        flex: 1 1 auto;
     }`]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
-    users$: Observable<any[]>;
+    users: User[];
     viewStats: ViewStats;
+    subscription: Subscription;
 
     constructor(
         private srv: UsersService,
@@ -58,11 +57,17 @@ export class UsersComponent implements OnInit {
 
     ngOnInit() {
         this.stats.startCollectingDataRest('users-page');
-        this.users$ = this.srv.getAllUsers();
 
-        this.users$.subscribe(users => {
+        this.subscription = this.srv.getAllUsers().subscribe(users => {
+            this.users = users;
             this.stats.setData(users);
             this.stats.stopCollectingDataRest('users-page');
         });
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

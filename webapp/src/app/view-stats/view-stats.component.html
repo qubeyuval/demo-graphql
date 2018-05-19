@@ -1,29 +1,19 @@
-<mat-grid-list cols="5" rowHeight="72px">
-    <mat-grid-tile>
-        <div class="cell">
-            <span>View</span>
-            <strong>{{ statsInfo?.name }}</strong>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div class="cell">
-            <span>Requests</span>
-            <strong>{{ statsInfo?.requests.length }}</strong>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div class="cell">
-            <span>Size</span>
-            <strong>{{ statsInfo?.size / 1000 }}kb</strong>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div class="cell">
-            <span>Time</span>
-            <strong>{{ statsInfo?.elapsedTime }}ms</strong>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <button mat-raised-button (click)="showResponseData()" color="accent">Show Response Data</button>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class="cell">
+    <span>View</span>
+    <strong>{{ statsInfo?.name }}</strong>
+</div>
+<div class="cell">
+    <span>Requests</span>
+    <strong>{{ statsInfo?.requests.length }}</strong>
+</div>
+<div class="cell">
+    <span>Size</span>
+    <strong>{{ statsInfo?.size / 1000 }}kb</strong>
+</div>
+<div class="cell">
+    <span>Time</span>
+    <strong>{{ statsInfo?.elapsedTime }}ms</strong>
+</div>
+<div class="cell">
+    <button mat-raised-button (click)="showResponseData()" color="accent">Show Data</button>
+</div>

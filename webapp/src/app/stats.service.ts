@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 export class ViewStats {
     name: string;
@@ -19,7 +19,7 @@ export class StatsService {
     // private statsBagRest: ViewStats[] = [];
     private currentViewStatsRest: ViewStats;
 
-    public viewStatsRest = new Subject<ViewStats>();
+    public viewStatsRest = new BehaviorSubject<ViewStats>({name: '', startTime: Date.now()});
 
     constructor() { }
 
