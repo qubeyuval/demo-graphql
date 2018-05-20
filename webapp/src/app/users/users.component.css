@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    padding: 16px;
+}
+
+mat-card {
+    width: 100%;
+}
+
+.posts-count {
+    flex: 0 1 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

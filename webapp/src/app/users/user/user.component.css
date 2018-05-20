@@ -17,7 +17,3 @@ section > mat-card {
     display: flex;
     flex-direction: column;
 }
-h4 {
-    background-color: #fce4ec;
-    padding: 16px;
-}

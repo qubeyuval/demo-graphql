@@ -1,0 +1,23 @@
+<mat-card>
+    <h4>Users</h4>
+    <mat-card-content>
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let user of users" [routerLink]="[user.id]">
+                <div>
+                    <strong matLine>{{ user.name }}</strong>
+                    <small matLine>{{ user.email }}</small>
+                </div>
+
+                <span class="spacer"></span>
+
+                <div class="posts-count">
+                    <strong matLine>{{ user.posts.length }}</strong>
+                    <small matLine>Posts</small>
+                </div>
+
+                <mat-divider></mat-divider>
+            </a>
+            <app-view-stats [viewName]="'users-page'"></app-view-stats>
+        </mat-nav-list>
+    </mat-card-content>
+</mat-card>

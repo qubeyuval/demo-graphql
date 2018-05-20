@@ -7,46 +7,8 @@ import { User } from '../models';
 import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-users',
-    template: `
-        <mat-nav-list>
-            <h4>Users</h4>
-            <a mat-list-item *ngFor="let user of users" [routerLink]="[user.id]">
-                <div>
-                    <strong matLine>{{ user.name }}</strong>
-                    <small matLine>{{ user.email }}</small>
-                </div>
-
-                <span class="spacer"></span>
-
-                <div class="posts-count">
-                    <strong matLine>{{ user.posts.length }}</strong>
-                    <small matLine>Posts</small>
-                </div>
-
-                <mat-divider></mat-divider>
-            </a>
-            <app-view-stats [viewName]="'users-page'"></app-view-stats>
-        </mat-nav-list>
-    `,
-    styles: [`
-    :host {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    mat-nav-list {
-        width: 90%;
-    }
-    h4 {
-        background-color: #fce4ec;
-        padding: 16px;
-    }
-    .posts-count {
-        flex: 0 1 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }`]
+    templateUrl: 'users.component.html',
+    styleUrls: ['users.component.css']
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
