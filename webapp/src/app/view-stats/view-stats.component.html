@@ -1,18 +1,18 @@
 <div class="cell">
-    <span>View</span>
-    <strong>{{ statsInfo?.name }}</strong>
+    <small>View</small>
+    <span>{{ statsInfo?.name }}</span>
 </div>
 <div class="cell">
-    <span>Requests</span>
-    <strong>{{ statsInfo?.requests.length }}</strong>
+    <small>Requests</small>
+    <span>{{ statsInfo?.requests.length }}</span>
 </div>
 <div class="cell">
-    <span>Size</span>
-    <strong>{{ statsInfo?.size / 1000 }}kb</strong>
+    <small>Size</small>
+    <span>{{ statsInfo?.size / 1000 }}kb</span>
 </div>
 <div class="cell">
-    <span>Time</span>
-    <strong>{{ statsInfo?.elapsedTime }}ms</strong>
+    <small>Time</small>
+    <span>{{ statsInfo?.elapsedTime }}ms</span>
 </div>
 <div class="cell">
     <button mat-raised-button (click)="showResponseData()" color="accent">Show Data</button>

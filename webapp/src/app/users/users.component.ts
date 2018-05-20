@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
     selector: 'app-users',
     template: `
         <mat-nav-list>
-            <h3 mat-subheader>Users</h3>
+            <h4>Users</h4>
             <a mat-list-item *ngFor="let user of users" [routerLink]="[user.id]">
                 <div>
                     <strong matLine>{{ user.name }}</strong>
@@ -35,7 +35,7 @@ import { Subscription } from 'rxjs';
         align-items: center;
     }
     mat-nav-list {
-        width: 75%;
+        width: 90%;
     }
     .stats {
         flex: 0 1 100px;

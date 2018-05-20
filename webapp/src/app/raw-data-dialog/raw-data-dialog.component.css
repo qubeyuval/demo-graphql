@@ -12,7 +12,7 @@ section {
     flex: 1 1 auto;
 }
 footer {
-    flex: 0 0 36px;
+    flex: 0 0 56px;
     padding-top: 16px;
     display: flex;
     justify-content: flex-end;
