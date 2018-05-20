@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve-api": "cd api && npm start",
+    "graphql": "cd graphql-server && npm start",
     "serve-webapp": "cd webapp && npm start"
   },
   "repository": {
