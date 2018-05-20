@@ -7,7 +7,7 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersComponent } from './users/users.component';
-import { RequestCounterInterceptor } from './request-counter-interceptor';
+import { RequestInterceptor } from './request-interceptor';
 import { UsersModule } from './users/users.module';
 import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
 
@@ -28,7 +28,7 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: RequestCounterInterceptor,
+            useClass: RequestInterceptor,
             multi: true
         }
     ],

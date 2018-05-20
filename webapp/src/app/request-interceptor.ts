@@ -6,7 +6,7 @@ import { StatsService } from './stats.service';
 @Injectable({
     providedIn: 'root'
 })
-export class RequestCounterInterceptor implements HttpInterceptor {
+export class RequestInterceptor implements HttpInterceptor {
 
 
     constructor(private stats: StatsService) {}
