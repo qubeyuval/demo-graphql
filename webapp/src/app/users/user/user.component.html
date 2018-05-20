@@ -2,7 +2,7 @@
     <mat-card>
         <mat-card-header>
             <mat-card-title>
-                <h2>{{ (user$ | async)?.name }}</h2>
+                <h2>{{ user?.name }}</h2>
             </mat-card-title>
             <span class="spacer"></span>
             <button mat-button routerLink="/users" color="accent">< Back</button>
@@ -13,7 +13,7 @@
 <section>
     <mat-card>
         <h4>User's Posts</h4>
-        <app-posts [posts]="(user$ | async)?.posts" (selectionChanged)="onPostSelected($event)"></app-posts>
+        <app-posts [posts]="user?.posts" (selectionChanged)="onPostSelected($event)"></app-posts>
         <span class="spacer"></span>
         <app-view-stats [viewName]="'user-posts'"></app-view-stats>
     </mat-card>

@@ -13,7 +13,7 @@ import { StatsService } from '../../stats.service';
 })
 export class UserComponent implements OnInit {
 
-    @Input() user$: Observable<User>;
+    user: User;
     selectedPost: Post;
 
     constructor(
@@ -23,15 +23,15 @@ export class UserComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.stats.startCollectingDataRest('user-posts');
-        this.user$ = this.route.paramMap.pipe(
-            switchMap((prm: ParamMap) => this.srv.getUserById(+prm.get('id')))
-        );
-
-        this.user$.subscribe(user => {
-            this.stats.setData(user);
-            this.stats.stopCollectingDataRest('user-posts');
+        this.route.paramMap.subscribe(prm => {
+            this.stats.startCollectingDataRest('user-posts');
+            this.srv.getUserById(+prm.get('id')).subscribe(user => {
+                this.user = user;
+                this.stats.setData(user);
+                this.stats.stopCollectingDataRest('user-posts');
+            });
         });
+
     }
 
     onPostSelected(post) {

@@ -19,8 +19,7 @@ export class UsersService {
             .pipe(
                 map((users: any[]) => {
                     return users.map((user, ind) => {
-                        const { id, name, email } = user;
-                        return this.getUserWithPosts({ id, name, email, posts: [] });
+                        return this.getUserWithPosts({ ...user, posts: [] });
                     });
                 }),
                 switchMap(requests => forkJoin(requests))
@@ -31,8 +30,7 @@ export class UsersService {
         return this.http.get<any>(`${this.baseUrl}/users/${userId}`)
             .pipe(
                 switchMap((user: any) => {
-                    const { id, name, email } = user;
-                    return this.getUserWithPosts({ id, name, email, posts: [] });
+                    return this.getUserWithPosts({ ...user, posts: [] });
                 })
             );
     }

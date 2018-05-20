@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
 
                 <span class="spacer"></span>
 
-                <div class="stats">
+                <div class="posts-count">
                     <strong matLine>{{ user.posts.length }}</strong>
                     <small matLine>Posts</small>
                 </div>
@@ -37,7 +37,11 @@ import { Subscription } from 'rxjs';
     mat-nav-list {
         width: 90%;
     }
-    .stats {
+    h4 {
+        background-color: #fce4ec;
+        padding: 16px;
+    }
+    .posts-count {
         flex: 0 1 100px;
         display: flex;
         flex-direction: column;

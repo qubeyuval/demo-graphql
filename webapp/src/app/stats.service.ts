@@ -3,7 +3,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 
 export class ViewStats {
     name: string;
-    startTime: number;
+    startTime?: number;
     endTime?: number;
     requests?: string[];
     data?: object;
@@ -15,10 +15,12 @@ export class ViewStats {
 })
 export class StatsService {
 
-    // private statsBagRest: ViewStats[] = [];
     private currentViewStatsRest: ViewStats;
 
-    public viewStatsRest = new BehaviorSubject<ViewStats>({name: '', startTime: Date.now()});
+    private _viewStatsRest = new BehaviorSubject<ViewStats>({name: ''});
+    public get viewStatsRest() {
+        return this._viewStatsRest.asObservable();
+    }
 
     constructor() { }
 
@@ -31,9 +33,9 @@ export class StatsService {
     }
 
     stopCollectingDataRest(viewName: string) {
-        if (this.currentViewStatsRest) {
+        if (this.currentViewStatsRest && this.currentViewStatsRest.name === viewName) {
             this.currentViewStatsRest.endTime = Date.now();
-            this.viewStatsRest.next({ ...this.currentViewStatsRest });
+            this._viewStatsRest.next({ ...this.currentViewStatsRest });
             this.currentViewStatsRest = null;
         }
     }
@@ -41,7 +43,6 @@ export class StatsService {
     setData(data: Object) {
         if (this.currentViewStatsRest) {
             this.currentViewStatsRest.data = data;
-            this.currentViewStatsRest.size = this.calcSize(data);
         }
     }
 
@@ -51,7 +52,5 @@ export class StatsService {
         }
     }
 
-    private calcSize(data: Object): number {
-        return JSON.stringify(data).length;
-    }
+
 }

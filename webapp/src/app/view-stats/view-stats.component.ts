@@ -26,6 +26,7 @@ export class ViewStatsComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.stats.viewStatsRest.subscribe(stats => {
             if (this.viewName === stats.name) {
+                stats.size = this.calcSize(stats.data);
                 this.statsInfo = stats;
             }
         });
@@ -47,4 +48,10 @@ export class ViewStatsComponent implements OnInit, OnDestroy {
         });
     }
 
+    private calcSize(data: Object): number {
+        if (data) {
+            return JSON.stringify(data).length;
+        }
+        return 0;
+    }
 }
