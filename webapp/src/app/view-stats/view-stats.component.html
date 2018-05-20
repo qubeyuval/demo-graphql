@@ -12,7 +12,7 @@
 </div>
 <div class="cell">
     <small>Time</small>
-    <span>{{ statsInfo?.elapsedTime }}ms</span>
+    <span>{{ statsInfo?.endTime - statsInfo?.startTime }}ms</span>
 </div>
 <div class="cell">
     <button mat-raised-button (click)="showResponseData()" color="accent">Show Data</button>

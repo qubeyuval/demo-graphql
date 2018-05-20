@@ -5,7 +5,6 @@ export class ViewStats {
     name: string;
     startTime: number;
     endTime?: number;
-    elapsedTime?: number;
     requests?: string[];
     data?: object;
     size?: number;
@@ -34,8 +33,6 @@ export class StatsService {
     stopCollectingDataRest(viewName: string) {
         if (this.currentViewStatsRest) {
             this.currentViewStatsRest.endTime = Date.now();
-            this.currentViewStatsRest.elapsedTime = this.currentViewStatsRest.endTime - this.currentViewStatsRest.startTime;
-            console.log(this.currentViewStatsRest);
             this.viewStatsRest.next({ ...this.currentViewStatsRest });
             this.currentViewStatsRest = null;
         }
