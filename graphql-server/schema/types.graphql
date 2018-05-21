@@ -1,0 +1,11 @@
+# import User Address Geo Company from "./user.graphql"
+# import Post from "./post.graphql"
+# import Comment from "./comment.graphql"
+
+type Query {
+    users: [User!]!
+    user(id: ID!): User
+
+    posts: [Post!]!
+    post(id: ID!): Post
+}
