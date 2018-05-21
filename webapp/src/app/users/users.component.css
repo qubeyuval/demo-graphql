@@ -16,3 +16,8 @@
 .card-graphql {
     grid-column-start: 4;
 }
+
+.mat-card-header {
+    background-color: #fce4ec;
+}
+

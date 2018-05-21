@@ -23,10 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
         private stats: StatsService
     ) { }
 
-    ngOnInit() {
-        this.loadUsersRest();
-        this.loadUsersGraphQL();
-    }
+    ngOnInit() { }
 
     ngOnDestroy() {
         if (this.restSubscription) {
