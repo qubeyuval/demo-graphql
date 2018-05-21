@@ -7,7 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch REST API server",
+            "program": "${workspaceFolder}/api/index.js",
+            "cwd": "${workspaceFolder}/api"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch GraphQL Server",
             "program": "${workspaceFolder}/graphql-server/index.js",
             "cwd": "${workspaceFolder}/graphql-server"
         },
