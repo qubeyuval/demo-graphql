@@ -10,8 +10,12 @@
         },
         {
             "type": "npm",
-            "script": "start",
-            "path": "api/",
+            "script": "graphql",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "serve-api",
             "problemMatcher": []
         }
     ]
