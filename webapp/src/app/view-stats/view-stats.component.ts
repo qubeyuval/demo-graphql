@@ -14,6 +14,7 @@ import { RawDataDialogComponent } from '../raw-data-dialog/raw-data-dialog.compo
 export class ViewStatsComponent implements OnInit, OnDestroy {
 
     @Input() viewName: string;
+    @Input() isGraphQL: boolean;
 
     statsInfo: ViewStats;
     subscription: Subscription;
@@ -24,7 +25,9 @@ export class ViewStatsComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.subscription = this.stats.viewStatsRest.subscribe(stats => {
+        const viewStats$: Observable<ViewStats> = this.isGraphQL ? this.stats.viewStatsGraphQL : this.stats.viewStatsRest;
+
+        this.subscription = viewStats$.subscribe(stats => {
             if (this.viewName === stats.name) {
                 stats.size = this.calcSize(stats.data);
                 this.statsInfo = stats;

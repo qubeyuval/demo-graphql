@@ -28,12 +28,12 @@ export class UserComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.prmSubscription = this.route.paramMap.subscribe(prm => {
-            this.stats.startCollectingDataRest('user-posts');
+            this.stats.startCollectingData('user-posts', false);
             this.userSubscription = this.srv.getUserById(+prm.get('id')).subscribe(user => {
                 this.user = user;
 
-                this.stats.setData(user);
-                this.stats.stopCollectingDataRest('user-posts');
+                this.stats.setData(user, false);
+                this.stats.stopCollectingData('user-posts', false);
             });
         });
     }
@@ -51,13 +51,13 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     onPostSelected(post) {
-        this.stats.startCollectingDataRest('post-comments');
+        this.stats.startCollectingData('post-comments', false);
         this.commentsSubscription = this.srv.getCommentsForPost(post.id).subscribe(comments => {
             post.comments = comments;
             this.selectedPost = post;
 
-            this.stats.setData(comments);
-            this.stats.stopCollectingDataRest('post-comments');
+            this.stats.setData(comments, false);
+            this.stats.stopCollectingData('post-comments', false);
         });
     }
 }

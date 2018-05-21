@@ -13,6 +13,7 @@ import { UsersComponent } from './users/users.component';
 import { RequestInterceptor } from './request-interceptor';
 import { UsersModule } from './users/users.module';
 import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
     declarations: [AppComponent, RawDataDialogComponent],
@@ -39,7 +40,7 @@ import { RawDataDialogComponent } from './raw-data-dialog/raw-data-dialog.compon
 export class AppModule {
     constructor(apollo: Apollo, httpLink: HttpLink) {
         apollo.create({
-            link: httpLink.create({ uri: 'http://localhost:3300/graphql' }),
+            link: httpLink.create({ uri: environment.graphqlBaseUrl }),
             cache: new InMemoryCache()
         });
     }
