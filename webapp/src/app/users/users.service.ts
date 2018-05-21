@@ -14,6 +14,7 @@ export class UsersService {
 
     constructor(private http: HttpClient) { }
 
+    // REST API functions
     getAllUsers(): Observable<User[]> {
         return this.http.get<any[]>(`${this.baseUrl}/users`)
             .pipe(
@@ -43,4 +44,8 @@ export class UsersService {
     getCommentsForPost(postId: number) {
         return this.http.get<any[]>(`${this.baseUrl}/posts/${postId}/comments`);
     }
+
+
+    // Graphql functions
+
 }

@@ -9,6 +9,12 @@ const server = new GraphQLServer({
 })
 
 const options = {
-    port
+    port,
+    endpoint: '/graphql',
+    playground: '/playground'
 }
-server.start(options, (options) => console.log(`Server is running on localhost:${port}`))
+server.start(options,
+    (options) =>
+        console.log(`Server is running on http://localhost:${options.port}/graphql
+Use playground on http://localhost:${options.port}/playground`))
+
