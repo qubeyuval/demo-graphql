@@ -1,47 +1,17 @@
-<mat-card>
-    <h4>Users</h4>
-    <mat-card-content>
-        <mat-nav-list>
-            <a mat-list-item *ngFor="let user of users" [routerLink]="[user.id]">
-                <div>
-                    <strong matLine>{{ user.name }}</strong>
-                    <small matLine>{{ user.email }}</small>
-                </div>
-
-                <span class="spacer"></span>
-
-                <div class="posts-count">
-                    <strong matLine>{{ user.posts.length }}</strong>
-                    <small matLine>Posts</small>
-                </div>
-
-                <mat-divider></mat-divider>
-            </a>
+<div class="container">
+    <mat-card class="card-rest">
+        <h4>Show Users using REST API</h4>
+        <mat-card-content>
+            <app-users-list [users]="restUsers"></app-users-list>
             <app-view-stats [viewName]="'users-page'" [isGraphQL]="false"></app-view-stats>
-        </mat-nav-list>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
 
-<mat-card>
-    <h4>GraphQL Users</h4>
-    <mat-card-content>
-        <mat-nav-list>
-            <a mat-list-item *ngFor="let user of graphqlUsers" [routerLink]="[user.id]">
-                <div>
-                    <strong matLine>{{ user.name }}</strong>
-                    <small matLine>{{ user.email }}</small>
-                </div>
-
-                <span class="spacer"></span>
-
-                <div class="posts-count">
-                    <strong matLine>{{ user.posts.length }}</strong>
-                    <small matLine>Posts</small>
-                </div>
-
-                <mat-divider></mat-divider>
-            </a>
+    <mat-card class="card-graphql">
+        <h4>Show Users using GraphQL</h4>
+        <mat-card-content>
+            <app-users-list [users]="graphqlUsers"></app-users-list>
             <app-view-stats [viewName]="'users-page'" [isGraphQL]="true"></app-view-stats>
-        </mat-nav-list>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>

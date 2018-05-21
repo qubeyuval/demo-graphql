@@ -10,6 +10,7 @@ import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './posts/post/post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ViewStatsComponent } from '../view-stats/view-stats.component';
+import { UsersListComponent } from './users-list/users-list.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -23,7 +24,8 @@ import { ViewStatsComponent } from '../view-stats/view-stats.component';
         PostsComponent,
         PostComponent,
         CommentsComponent,
-        ViewStatsComponent
+        ViewStatsComponent,
+        UsersListComponent
     ],
     providers: [UsersService],
 })
