@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs';
 
 import { User, Post } from '../../models';
 import { UsersService } from '../users.service';
-import { StatsService } from '../../stats.service';
 
 @Component({
     selector: 'app-user',
@@ -22,19 +21,19 @@ export class UserComponent implements OnInit, OnDestroy {
 
     constructor(
         private srv: UsersService,
-        private stats: StatsService,
         private route: ActivatedRoute
     ) { }
 
     ngOnInit() {
         this.prmSubscription = this.route.paramMap.subscribe(prm => {
-            this.stats.startCollectingData('user-posts', false);
-            this.userSubscription = this.srv.getUserById(+prm.get('id')).subscribe(user => {
+            this.userSubscription = this.srv.graphqlGetUserById(+prm.get('id')).subscribe(user => {
                 this.user = user;
-
-                this.stats.setData(user, false);
-                this.stats.stopCollectingData('user-posts', false);
             });
+
+            // REST API
+            // this.userSubscription = this.srv.getUserById(+prm.get('id')).subscribe(user => {
+            //     this.user = user;
+            // });
         });
     }
 
@@ -51,13 +50,13 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     onPostSelected(post) {
-        this.stats.startCollectingData('post-comments', false);
-        this.commentsSubscription = this.srv.getCommentsForPost(post.id).subscribe(comments => {
-            post.comments = comments;
-            this.selectedPost = post;
+        // GraphQL - post object already contains comments list - no need to do a special fetch for comments
+        this.selectedPost = post;
 
-            this.stats.setData(comments, false);
-            this.stats.stopCollectingData('post-comments', false);
-        });
+        // REST API
+        // this.commentsSubscription = this.srv.getCommentsForPost(post.id).subscribe(comments => {
+        //     post.comments = comments;
+        //     this.selectedPost = post;
+        // });
     }
 }

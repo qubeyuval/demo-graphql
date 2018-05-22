@@ -15,8 +15,7 @@ import { User } from '../models';
 export class UsersService {
     baseUrl = environment.apiBaseUrl;
 
-    constructor(private http: HttpClient,
-                private apollo: Apollo) {}
+    constructor(private http: HttpClient, private apollo: Apollo) {}
 
     // REST API functions
     getAllUsers(): Observable<User[]> {
@@ -51,7 +50,7 @@ export class UsersService {
     // Graphql functions
     graphqlGetAllUsers(): Observable<User[]> {
         const qryUsers = gql`
-            query getUsers{
+            query getUsers {
                 users {
                     id
                     name
@@ -63,12 +62,34 @@ export class UsersService {
             }
         `;
 
-        return this.apollo.watchQuery<any>({
-            query: qryUsers
-        })
-        .valueChanges
-        .pipe(
-            map(res => res.data['users'])
-        );
+        return this.apollo
+            .watchQuery<any>({
+                query: qryUsers
+            })
+            .valueChanges.pipe(map(res => res.data['users']));
+    }
+
+    graphqlGetUserById(userId: number) {
+        const qryUsers = gql`
+            query getUser($id: ID!){
+                user(id: $id) {
+                    name
+                    posts {
+                    title
+                    body
+                    comments {
+                        name
+                    }
+                    }
+                }
+            }
+        `;
+
+        return this.apollo
+            .watchQuery<any>({
+                query: qryUsers,
+                variables: { id: userId }
+            })
+            .valueChanges.pipe(map(res => res.data['user']));
     }
 }
