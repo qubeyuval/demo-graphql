@@ -73,9 +73,11 @@ export class UsersService {
         const qryUsers = gql`
             query getUser($id: ID!){
                 user(id: $id) {
+                    id
                     name
                     email
                     posts {
+                        id
                         title
                         body
                         comments {
@@ -107,6 +109,8 @@ export class UsersService {
                 mutation: addNewComment,
                 variables: { postId: postId, name: newComment }
             })
-            .pipe(map(res => res.data['createComment']));
+            .pipe(map(res => {
+                return res.data['createComment'];
+            }));
     }
 }

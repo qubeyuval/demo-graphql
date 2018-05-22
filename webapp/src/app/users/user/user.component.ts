@@ -65,7 +65,10 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     onSaveNewComment(newComment) {
-        this.addCommentSubscription = this.srv.addComment(this.selectedPost.id, newComment)
-            .subscribe(comment => this.selectedPost.comments.push(comment));
+        const post = this.selectedPost;
+        this.addCommentSubscription = this.srv.addComment(post.id, newComment)
+            .subscribe(comment => {
+                this.selectedPost = { ...post, comments: [...post.comments, comment]};
+            });
     }
 }
