@@ -5,12 +5,12 @@ const baseUrl = 'http://localhost:3000';
 module.exports = {
     User: {
         posts: (user, args) => {
-            return fetch(`${baseUrl}/users/${user.id}/posts`).then(res => res.json()); 
+            return fetch(`${baseUrl}/users/${user.id}/posts`).then(res => res.json());
         }
     },
     Post: {
         comments: (post, args) => {
-            return fetch(`${baseUrl}/posts/${post.id}/comments`).then(res => res.json()); 
+            return fetch(`${baseUrl}/posts/${post.id}/comments`).then(res => res.json());
         }
     },
     Query: {
@@ -27,6 +27,71 @@ module.exports = {
         post: async (parent, args) => {
             const { id } = args;
             return fetch(`${baseUrl}/posts/${id}`).then(res => res.json());
+        }
+    },
+    Mutation: {
+        createComment: async (parent, args) => {
+            const { postId, name, email, body } = args;
+            const newComment = JSON.stringify({ postId, name, email, body });
+            return fetch(`${baseUrl}/comments`, {
+                method: 'POST',
+                body: newComment,
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json());
+        },
+        updateComment: async (parent, args) => {
+            const { id, name, body } = args;
+            const comment = JSON.stringify({ name, body });
+            return fetch(`${baseUrl}/comments/${id}`, {
+                method: 'PATCH',
+                body: comment,
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json());
+        },
+        deleteComment: async (parent, args) => {
+            const { id } = args;
+            return fetch(`${baseUrl}/comments/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json());
+        },
+
+        createPost: async (parent, args) => {
+            const { userId, title, body } = args;
+            const newPost = JSON.stringify({ userId, title, body });
+            return fetch(`${baseUrl}/posts`, {
+                method: 'POST',
+                body: newPost,
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json());
+        },
+        updatePost: async (parent, args) => {
+            const { id, title, body } = args;
+            const post = JSON.stringify({ title, body });
+            return fetch(`${baseUrl}/posts/${id}`, {
+                method: 'PATCH',
+                body: post,
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json());
+        },
+        deletePost: async (parent, args) => {
+            const { id } = args;
+            return fetch(`${baseUrl}/posts/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json());
         }
     }
 };
