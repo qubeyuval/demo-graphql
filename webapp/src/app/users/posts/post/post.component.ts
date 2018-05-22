@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    OnChanges
+} from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
 import { Post } from '../../../models';
 
 @Component({
@@ -6,19 +15,27 @@ import { Post } from '../../../models';
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
-
+export class PostComponent implements OnChanges {
     @Input() post: Post;
-    @Output() addCommentClicked = new EventEmitter();
+    @Output() saveNewComment = new EventEmitter<string>();
 
-    constructor() { }
+    allowAddComment = false;
 
-    ngOnInit() {
+    constructor() {}
+
+    ngOnChanges() {
+        if (this.post) {
+            this.allowAddComment = false;
+        }
     }
 
     addComment() {
-        console.log('aaaa');
+        this.allowAddComment = true;
+    }
 
-        this.addCommentClicked.emit();
+    onSaveComment(newComment) {
+        console.log(newComment);
+        this.allowAddComment = false;
+        this.saveNewComment.emit(newComment);
     }
 }

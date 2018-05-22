@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { UsersRoutingModule } from './users-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AngularMaterialModule } from '../angular-material.module';
 import { UsersComponent } from './users.component';
@@ -16,7 +17,9 @@ import { HeaderToolbarComponent } from './header-toolbar/header-toolbar.componen
     imports: [
         BrowserModule,
         UsersRoutingModule,
-        AngularMaterialModule
+        AngularMaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     exports: [],
     declarations: [

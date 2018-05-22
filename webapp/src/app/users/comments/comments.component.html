@@ -3,4 +3,11 @@
         <span>{{ comment.name }}</span>
         <mat-divider></mat-divider>
     </mat-list-item>
+    <form *ngIf="addComment" [formGroup]="frmComment" (ngSubmit)="save()">
+        <mat-form-field>
+            <input #commentField matInput placeholder="Please comment..." formControlName="newComment">
+            <mat-icon matSuffix mat-button (click)="clear()">clear</mat-icon>
+            <mat-icon matSuffix mat-button color="accent" (click)="save()">check</mat-icon>
+        </mat-form-field>
+    </form>
 </mat-list>

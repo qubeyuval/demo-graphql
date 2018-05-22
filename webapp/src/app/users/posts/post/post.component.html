@@ -14,5 +14,5 @@
         </button>
     </app-header-toolbar>
 
-    <app-comments [comments]="post?.comments"></app-comments>
+    <app-comments [comments]="post?.comments" [addComment]="allowAddComment" (saveComment)="onSaveComment($event)"></app-comments>
 </footer>

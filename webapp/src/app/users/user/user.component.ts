@@ -15,6 +15,7 @@ export class UserComponent implements OnInit, OnDestroy {
     private prmSubscription: Subscription;
     private userSubscription: Subscription;
     private commentsSubscription: Subscription;
+    private addCommentSubscription: Subscription;
 
     user: User;
     selectedPost: Post;
@@ -47,6 +48,9 @@ export class UserComponent implements OnInit, OnDestroy {
         if (this.commentsSubscription) {
             this.commentsSubscription.unsubscribe();
         }
+        if (this.addCommentSubscription) {
+            this.addCommentSubscription.unsubscribe();
+        }
     }
 
     onPostSelected(post) {
@@ -58,5 +62,10 @@ export class UserComponent implements OnInit, OnDestroy {
         //     post.comments = comments;
         //     this.selectedPost = post;
         // });
+    }
+
+    onSaveNewComment(newComment) {
+        this.addCommentSubscription = this.srv.addComment(this.selectedPost.id, newComment)
+            .subscribe(comment => this.selectedPost.comments.push(comment));
     }
 }

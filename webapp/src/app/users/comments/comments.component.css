@@ -1,0 +1,15 @@
+form {
+    padding: 0 16px;
+}
+
+form .mat-form-field {
+    width: 100%;
+}
+
+[mat-button] {
+    cursor: pointer;
+}
+
+[mat-button]:hover {
+    background-color: #fce4ec;
+}

@@ -11,11 +11,11 @@ type Query {
 }
 
 type Mutation {
-    createComment(postId: ID!, name: String!, email: String!, body: String!): Comment
+    createComment(postId: ID!, name: String!, email: String, body: String): Comment
     updateComment(id: ID!, name: String!, body: String!): Comment
     deleteComment(id: ID!): Comment
 
-    createPost(userId: ID!, title: String!, body: String!): Post
+    createPost(userId: ID!, title: String!, body: String): Post
     updatePost(id: ID!, title: String!, body: String!): Post
     deletePost(id: ID!): Post
 }

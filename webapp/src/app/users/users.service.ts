@@ -7,7 +7,7 @@ import { Apollo } from 'apollo-angular';
 
 import { Observable, pipe, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { User } from '../models';
+import { User, Comment } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -87,10 +87,26 @@ export class UsersService {
         `;
 
         return this.apollo
-            .watchQuery<any>({
+            .watchQuery({
                 query: qryUsers,
                 variables: { id: userId }
             })
             .valueChanges.pipe(map(res => res.data['user']));
+    }
+
+    addComment(postId: number, newComment: string) {
+        const addNewComment = gql`
+            mutation addNewComment($postId: ID!, $name: String!){
+                createComment(postId: $postId, name: $name) {
+                    name
+                }
+            }
+        `;
+
+        return this.apollo.mutate({
+                mutation: addNewComment,
+                variables: { postId: postId, name: newComment }
+            })
+            .pipe(map(res => res.data['createComment']));
     }
 }

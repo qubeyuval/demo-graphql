@@ -27,7 +27,7 @@
         <app-header-toolbar>
             <strong title>Post</strong>
         </app-header-toolbar>
-        <app-post [post]="selectedPost"></app-post>
+        <app-post [post]="selectedPost" (saveNewComment)="onSaveNewComment($event)"></app-post>
         <span class="spacer"></span>
     </mat-card>
 </section>
