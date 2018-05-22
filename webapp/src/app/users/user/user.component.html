@@ -4,6 +4,9 @@
             <mat-card-title>
                 <h2>{{ user?.name }}</h2>
             </mat-card-title>
+            <mat-card-subtitle>
+                <h2>{{ user?.email }}</h2>
+            </mat-card-subtitle>
             <span class="spacer"></span>
             <button mat-button routerLink="/users" color="accent">< Back</button>
         </mat-card-header>
@@ -12,15 +15,18 @@
 
 <section>
     <mat-card>
-        <h4>User's Posts</h4>
+        <app-header-toolbar>
+            <strong title>User's Posts</strong>
+        </app-header-toolbar>
         <app-posts [posts]="user?.posts" (selectionChanged)="onPostSelected($event)"></app-posts>
-        <span class="spacer"></span>
     </mat-card>
 
     <span class="spacer"></span>
 
     <mat-card>
-        <h4>Post</h4>
+        <app-header-toolbar>
+            <strong title>Post</strong>
+        </app-header-toolbar>
         <app-post [post]="selectedPost"></app-post>
         <span class="spacer"></span>
     </mat-card>

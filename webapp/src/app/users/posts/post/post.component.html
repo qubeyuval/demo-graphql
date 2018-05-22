@@ -1,11 +1,18 @@
 <header>
     <h2>{{ post?.title }}</h2>
 </header>
+
 <section>
-    {{ post?.body }}
+    <p>{{ post?.body }}</p>
 </section>
 
 <footer *ngIf="!!post">
-    <h4>Comments</h4>
+    <app-header-toolbar>
+        <strong title>Comments</strong>
+        <button buttons mat-mini-fab color="accent" (click)="addComment()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </app-header-toolbar>
+
     <app-comments [comments]="post?.comments"></app-comments>
 </footer>

@@ -11,6 +11,7 @@ import { PostComponent } from './posts/post/post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ViewStatsComponent } from '../view-stats/view-stats.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { HeaderToolbarComponent } from './header-toolbar/header-toolbar.component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -25,7 +26,8 @@ import { UsersListComponent } from './users-list/users-list.component';
         PostComponent,
         CommentsComponent,
         ViewStatsComponent,
-        UsersListComponent
+        UsersListComponent,
+        HeaderToolbarComponent
     ],
     providers: [UsersService],
 })

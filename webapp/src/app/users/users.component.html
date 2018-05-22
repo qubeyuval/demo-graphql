@@ -1,32 +1,26 @@
 <div class="container">
     <mat-card class="card-rest">
 
-        <mat-card-header>
-            <h3>Users list by REST API</h3>
-        </mat-card-header>
+        <app-header-toolbar>
+            <strong title>Users list by REST API</strong>
+            <button buttons mat-button color="accent" (click)="loadUsersRest()">LOAD USING REST API</button>
+        </app-header-toolbar>
 
         <mat-card-content>
             <app-users-list [users]="restUsers"></app-users-list>
             <app-view-stats *ngIf="restUsers" [viewName]="'users-page'" [isGraphQL]="false"></app-view-stats>
         </mat-card-content>
-
-        <mat-card-actions>
-            <button mat-button color="accent" (click)="loadUsersRest()">LOAD USING REST API</button>
-        </mat-card-actions>
     </mat-card>
 
     <mat-card class="card-graphql">
-        <mat-card-header>
-            <h3>Users list by GraphQL</h3>
-        </mat-card-header>
+        <app-header-toolbar>
+            <strong title>Users list by GraphQL</strong>
+            <button buttons mat-button color="accent" (click)="loadUsersGraphQL()">LOAD USING GRAPHQL</button>
+        </app-header-toolbar>
 
         <mat-card-content>
             <app-users-list [users]="graphqlUsers"></app-users-list>
             <app-view-stats *ngIf="graphqlUsers" [viewName]="'users-page'" [isGraphQL]="true"></app-view-stats>
         </mat-card-content>
-
-        <mat-card-actions>
-            <button mat-button color="accent" (click)="loadUsersGraphQL()">LOAD USING GRAPHQL</button>
-        </mat-card-actions>
     </mat-card>
 </div>

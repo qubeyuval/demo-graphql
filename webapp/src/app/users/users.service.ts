@@ -74,12 +74,13 @@ export class UsersService {
             query getUser($id: ID!){
                 user(id: $id) {
                     name
+                    email
                     posts {
-                    title
-                    body
-                    comments {
-                        name
-                    }
+                        title
+                        body
+                        comments {
+                            name
+                        }
                     }
                 }
             }
