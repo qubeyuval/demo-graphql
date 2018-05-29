@@ -53,7 +53,19 @@ Notice how, if you want to get information on `users` and `posts` you need to ma
 To play with GraphQL queries directly on the service browse to:
 <http://localhost:3300/playground>
 
-(Can you put a sample GraphQL query in here???)
+You can try this query by copy and paste in the playground:
+```
+{
+    users {
+        id
+        name
+        email
+        posts {
+            title
+        }
+    }
+}
+```
 
 To open the Webapp browse to:
 <http://localhost:4200>
