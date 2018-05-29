@@ -72,11 +72,11 @@ At the end of each list you can see a comparison of:
  
 **Q:** _This looks great, but why not just create a REST resource that collates the information that you need and returns it in one go, similar to what the GraphQL implementation returns?_
 
-**A:** ????
+**A:** With GraphQL you don't need backend development efforts tailored for a specific use-case. Basically the flexibility of the query to one endpoint and the schema definitions allows any client developer to adjust the query and response to it's view needs without taking development cycles to implement something that will address only one use-case.
  
  **Q:** _If the schema changes, how easy is it to update the GraphQL Service to handle the change?_
  
- **A:** ????
+ **A:** It's depends on the change. Because every field can be a resolver which is just a function potentially you can re-arrange the resolvers in a way that your schema change would not require creating new resolvers by re-using the same resolvers. If you need to add new types you may need to implement new resolvers but this is the same as adding new endpoint in REST API.
  
  
 
