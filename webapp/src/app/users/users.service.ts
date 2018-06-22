@@ -70,7 +70,7 @@ export class UsersService {
     }
 
     graphqlGetUserById(userId: number) {
-        const qryUsers = gql`
+        const qryUser = gql`
             query getUser($id: ID!){
                 user(id: $id) {
                     id
@@ -90,7 +90,7 @@ export class UsersService {
 
         return this.apollo
             .watchQuery({
-                query: qryUsers,
+                query: qryUser,
                 variables: { id: userId }
             })
             .valueChanges.pipe(map(res => res.data['user']));
