@@ -35,21 +35,18 @@ module.exports = {
         createComment: async (parent, args) => {
             const { postId, name, email, body } = args;
             const newComment = JSON.stringify({ postId, name, email, body });
-            return fetch(`${baseUrl}/comments`, {
+            let comment = (await fetch(`${baseUrl}/comments`, {
                 method: 'POST',
                 body: newComment,
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }
-            })
-            .then(res => res.json())
-            .then(comment => {
-                pubSub.publish('newCommentCreated', {
-                    newCommentCreated: comment,
-                    channelId: postId
-                });
-                return comment;
-            })
+            })).json();
+            pubSub.publish('commentCreated', {
+                commentCreated: comment,
+                channelId: postId
+            });
+            return comment;
         },
         updateComment: async (parent, args) => {
             const { id, name, body } = args;
@@ -104,9 +101,9 @@ module.exports = {
         }
     },
     Subscription: {
-        newCommentCreated: {
+        commentCreated: {
             subscribe: withFilter(
-                () => pubSub.asyncIterator('newCommentCreated'),
+                () => pubSub.asyncIterator('commentCreated'),
                 (payload, variables) => payload.channelId === variables.postId)
         }
     }
