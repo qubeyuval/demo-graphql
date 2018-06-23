@@ -1,15 +1,17 @@
 const fetch = require('node-fetch');
+const { PubSub, withFilter } = require('graphql-yoga');
+const baseUrl = process.env.REST_API_BASE_URL || 'http://localhost:3000';
 
-const baseUrl = 'http://localhost:3000';
+const pubSub = new PubSub();
 
 module.exports = {
     User: {
-        posts: (user, args) => {
+        posts: async (user, args) => {
             return fetch(`${baseUrl}/users/${user.id}/posts`).then(res => res.json());
         }
     },
     Post: {
-        comments: (post, args) => {
+        comments: async (post, args) => {
             return fetch(`${baseUrl}/posts/${post.id}/comments`).then(res => res.json());
         }
     },
@@ -40,7 +42,14 @@ module.exports = {
                     "Content-type": "application/json; charset=UTF-8"
                 }
             })
-            .then(res => res.json());
+            .then(res => res.json())
+            .then(comment => {
+                pubSub.publish('newCommentCreated', {
+                    newCommentCreated: comment,
+                    channelId: postId
+                });
+                return comment;
+            })
         },
         updateComment: async (parent, args) => {
             const { id, name, body } = args;
@@ -92,6 +101,13 @@ module.exports = {
                 method: 'DELETE'
             })
             .then(res => res.json());
+        }
+    },
+    Subscription: {
+        newCommentCreated: {
+            subscribe: withFilter(
+                () => pubSub.asyncIterator('newCommentCreated'),
+                (payload, variables) => payload.channelId === variables.postId)
         }
     }
 };

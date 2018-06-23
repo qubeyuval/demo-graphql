@@ -1,16 +1,21 @@
 {
-  "name": "graphql-server-yoga",
-  "version": "1.0.0",
-  "description": "Graphql server based on graphql-yoga",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "graphql-yoga": "^1.14.0",
-    "node-fetch": "^2.1.2"
-  }
+    "name": "graphql-server-yoga",
+    "version": "1.0.0",
+    "description": "Graphql server based on graphql-yoga",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "graphql-yoga": "^1.14.0",
+        "node-fetch": "^2.1.2"
+    },
+    "now": {
+        "env": {
+            "REST_API_BASE_URL": "https://mock-rest-api-ctdphdsgjj.now.sh"
+        }
+    }
 }

@@ -8,15 +8,18 @@
             "type": "node",
             "request": "launch",
             "name": "Launch REST API server",
-            "program": "${workspaceFolder}/api/index.js",
-            "cwd": "${workspaceFolder}/api"
+            "program": "${workspaceFolder}/rest-api/index.js",
+            "cwd": "${workspaceFolder}/rest-api"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Launch GraphQL Server",
             "program": "${workspaceFolder}/graphql-server/index.js",
-            "cwd": "${workspaceFolder}/graphql-server"
+            "cwd": "${workspaceFolder}/graphql-server",
+            "env": {
+                "REST_API_BASE_URL": "https://mock-rest-api-ctdphdsgjj.now.sh"
+            }
         },
         {
             "name": "Launch Chrome",

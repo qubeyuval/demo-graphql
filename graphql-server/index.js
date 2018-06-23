@@ -5,7 +5,7 @@ const port = process.env.PORT || 3300
 
 const server = new GraphQLServer({
     typeDefs: './schema/types.graphql',
-    resolvers
+    resolvers,
 })
 
 const options = {

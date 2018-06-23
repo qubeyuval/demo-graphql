@@ -19,3 +19,7 @@ type Mutation {
     updatePost(id: ID!, title: String!, body: String!): Post
     deletePost(id: ID!): Post
 }
+
+type Subscription {
+    newCommentCreated(postId: ID!): Comment!
+}
