@@ -1,34 +1,45 @@
 const fetch = require('node-fetch');
 const { PubSub, withFilter } = require('graphql-yoga');
+const DataLoader = require('dataloader');
+
 const baseUrl = process.env.REST_API_BASE_URL || 'http://localhost:3000';
 
 const pubSub = new PubSub();
 
+
+function fetchResponseByUrl(relUrl) {
+    return fetch(`${baseUrl}/${relUrl}`).then(res => res.json());
+}
+
+const dataLoader = new DataLoader(
+    urls => Promise.all(urls.map(fetchResponseByUrl))
+);
+
 module.exports = {
     User: {
         posts: async (user, args) => {
-            return fetch(`${baseUrl}/users/${user.id}/posts`).then(res => res.json());
+            return dataLoader.load(`users/${user.id}/posts`);
         }
     },
     Post: {
         comments: async (post, args) => {
-            return fetch(`${baseUrl}/posts/${post.id}/comments`).then(res => res.json());
+            return dataLoader.load(`posts/${post.id}/comments`);
         }
     },
     Query: {
         users: async () => {
-            return fetch(`${baseUrl}/users`).then(res => res.json());
+            return dataLoader.load(`users`);
         },
         user: async (parent, args) => {
             const { id } = args;
-            return fetch(`${baseUrl}/users/${id}`).then(res => res.json());
+            return dataLoader.load(`users/${id}`);
         },
         posts: async () => {
-            return fetch(`${baseUrl}/posts`).then(res => res.json());
+            return dataLoader.load(`posts`);
         },
         post: async (parent, args) => {
             const { id } = args;
-            return fetch(`${baseUrl}/posts/${id}`).then(res => res.json());
+            return dataLoader.load(`posts/${id}`);
         }
     },
     Mutation: {
