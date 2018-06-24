@@ -1,5 +1,10 @@
 <mat-toolbar color="primary">
     Demo App
+    <span class="spacer"></span>
+    <nav>
+        <a mat-button color="accent" href="{{restApiUrl}}" target="rest_api">REST API</a>
+        <a mat-button color="accent" href="{{graphQLUrl}}" target="graphql_playground">GraphQL Playground</a>
+    </nav>
 </mat-toolbar>
 <section>
     <router-outlet></router-outlet>

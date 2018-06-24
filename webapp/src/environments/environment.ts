@@ -7,6 +7,7 @@ export const environment = {
     apiBaseUrl: 'http://localhost:3000',
     graphqlBaseUrl: 'http://localhost:3300/graphql',
     graphqlWSBaseUrl: 'ws://localhost:3300',
+    graphqlPlaygroundUrl: 'http://localhost:3300/playground',
 };
 
 /*
