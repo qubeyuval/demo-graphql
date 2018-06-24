@@ -1,7 +1,6 @@
-import { switchMap } from 'rxjs/operators';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { User, Post } from '../../models';
 import { UsersService } from '../users.service';
@@ -20,16 +19,15 @@ export class UserComponent implements OnInit, OnDestroy {
     user: User;
     selectedPost: Post;
 
-    constructor(
-        private srv: UsersService,
-        private route: ActivatedRoute
-    ) { }
+    constructor(private srv: UsersService, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.prmSubscription = this.route.paramMap.subscribe(prm => {
-            this.userSubscription = this.srv.graphqlGetUserById(+prm.get('id')).subscribe(user => {
-                this.user = user;
-            });
+            this.userSubscription = this.srv
+                .graphqlGetUserById(+prm.get('id'))
+                .subscribe(user => {
+                    this.user = user;
+                });
 
             // REST API
             // this.userSubscription = this.srv.getUserById(+prm.get('id')).subscribe(user => {
@@ -57,6 +55,21 @@ export class UserComponent implements OnInit, OnDestroy {
         // GraphQL - post object already contains comments list - no need to do a special fetch for comments
         this.selectedPost = post;
 
+        // unsubscriibe for the previous post comments
+        if (this.commentsSubscription) {
+            this.commentsSubscription.unsubscribe();
+        }
+
+        // subscribe to the new selected post comments.
+        this.commentsSubscription = this.srv
+            .onCommentCreatedForPost(this.selectedPost.id)
+            .subscribe(comment => {
+                this.selectedPost = {
+                    ...post,
+                    comments: [...this.selectedPost.comments, comment]
+                };
+            });
+
         // REST API
         // this.commentsSubscription = this.srv.getCommentsForPost(post.id).subscribe(comments => {
         //     post.comments = comments;
@@ -66,9 +79,13 @@ export class UserComponent implements OnInit, OnDestroy {
 
     onSaveNewComment(newComment) {
         const post = this.selectedPost;
-        this.addCommentSubscription = this.srv.addComment(post.id, newComment)
+        this.addCommentSubscription = this.srv
+            .addComment(post.id, newComment)
             .subscribe(comment => {
-                this.selectedPost = { ...post, comments: [...post.comments, comment]};
+                this.selectedPost = {
+                    ...post,
+                    comments: [...post.comments, comment]
+                };
             });
     }
 }

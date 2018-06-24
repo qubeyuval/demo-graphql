@@ -6,7 +6,7 @@ import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 
 import { Observable, pipe, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, filter } from 'rxjs/operators';
 import { User, Comment } from '../models';
 
 @Injectable({
@@ -71,7 +71,7 @@ export class UsersService {
 
     graphqlGetUserById(userId: number) {
         const qryUser = gql`
-            query getUser($id: ID!){
+            query getUser($id: ID!) {
                 user(id: $id) {
                     id
                     name
@@ -98,19 +98,40 @@ export class UsersService {
 
     addComment(postId: number, newComment: string) {
         const addNewComment = gql`
-            mutation addNewComment($postId: ID!, $name: String!){
+            mutation addNewComment($postId: ID!, $name: String!) {
                 createComment(postId: $postId, name: $name) {
                     name
                 }
             }
         `;
 
-        return this.apollo.mutate({
+        return this.apollo
+            .mutate({
                 mutation: addNewComment,
                 variables: { postId: postId, name: newComment }
             })
-            .pipe(map(res => {
-                return res.data['createComment'];
-            }));
+            .pipe(
+                map(res => {
+                    return res.data['createComment'];
+                })
+            );
+    }
+
+    onCommentCreatedForPost(postId: number): Observable<Comment> {
+        const commentCreatedSubscription = gql`
+            subscription onCommentCreated($postId: ID!){
+                commentCreated(postId: $postId) {
+                    name
+                }
+            }
+        `;
+
+        return this.apollo.subscribe({
+            query: commentCreatedSubscription,
+            variables: {postId}
+        }).pipe(
+            // filter(res => !!res && !!res.data),
+            map(res => res.data['commentCreated'])
+        );
     }
 }

@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     apiBaseUrl: 'http://localhost:3000',
-    graphqlBaseUrl: 'http://localhost:3300/graphql'
+    graphqlBaseUrl: 'http://localhost:3300/graphql',
+    graphqlWSBaseUrl: 'ws://localhost:3300',
 };
 
 /*
