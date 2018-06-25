@@ -8,7 +8,11 @@
         <span class="spacer"></span>
 
         <div class="posts-count">
-            <strong matLine>{{ user.posts.length }}</strong>
+            <strong matLine>{{ user.todos?.length }}</strong>
+            <small matLine>To Dos</small>
+        </div>
+        <div class="posts-count">
+            <strong matLine>{{ user.posts?.length }}</strong>
             <small matLine>Posts</small>
         </div>
 

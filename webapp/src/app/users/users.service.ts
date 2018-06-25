@@ -22,25 +22,24 @@ export class UsersService {
         return this.http.get<any[]>(`${this.baseUrl}/users`).pipe(
             map((users: any[]) => {
                 return users.map((user, ind) => {
-                    return this.getUserWithPosts({ ...user, posts: [] });
+                    return this.getUserWithPostsTodos({ ...user, posts: [] });
                 });
             }),
             switchMap(requests => forkJoin(requests))
         );
     }
 
-    getUserById(userId: number): Observable<User> {
-        return this.http.get<any>(`${this.baseUrl}/users/${userId}`).pipe(
-            switchMap((user: any) => {
-                return this.getUserWithPosts({ ...user, posts: [] });
-            })
-        );
-    }
-
-    getUserWithPosts(user: User): Observable<User> {
+    getUserWithPostsTodos(user: User): Observable<User> {
         return this.http
             .get<any>(`${this.baseUrl}/users/${user.id}/posts`)
-            .pipe(map(posts => ({ ...user, posts })));
+            .pipe(
+                map(posts => ({ ...user, posts })),
+                switchMap(usr => {
+                    return this.http
+                    .get<any>(`${this.baseUrl}/users/${usr.id}/todos`)
+                    .pipe(map(todos => ({...usr, todos: todos.filter(todo => todo.completed === true)})));
+                })
+            );
     }
 
     getCommentsForPost(postId: number) {
@@ -56,6 +55,9 @@ export class UsersService {
                     name
                     email
                     posts {
+                        title
+                    }
+                    todos(completed: true) {
                         title
                     }
                 }

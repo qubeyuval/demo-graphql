@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     posts: Post[];
+    todos: Todo[];
 }
 
 export interface Post {
@@ -17,4 +18,10 @@ export interface Comment {
     email: string;
     name: string;
     body: string;
+}
+
+export interface Todo {
+    id: number;
+    title: string;
+    completed: boolean;
 }
