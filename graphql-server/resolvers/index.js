@@ -19,6 +19,14 @@ module.exports = {
     User: {
         posts: async (user, args) => {
             return dataLoader.load(`users/${user.id}/posts`);
+        },
+        todos: async (user, args) => {
+            const {userId, completed} = args;
+            let todos = await dataLoader.load(`users/${user.id}/todos`);
+            if (completed !== undefined) {
+                return todos.filter(td => td.completed === completed);
+            }
+            return todos;
         }
     },
     Post: {
@@ -40,6 +48,17 @@ module.exports = {
         post: async (parent, args) => {
             const { id } = args;
             return dataLoader.load(`posts/${id}`);
+        },
+        todosByUser: async (parent, args) => {
+            const {userId, completed, limit} = args;
+            let todos = await dataLoader.load(`users/${userId}/todos`);
+            if (completed !== undefined) {
+                todos = todos.filter(td => td.completed === completed);
+            }
+            if (limit !== undefined) {
+                todos = todos.slice(0, limit);
+            }
+            return todos;
         }
     },
     Mutation: {
@@ -49,9 +68,7 @@ module.exports = {
             let comment = (await fetch(`${baseUrl}/comments`, {
                 method: 'POST',
                 body: newComment,
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })).json();
             pubSub.publish('commentCreated', {
                 commentCreated: comment,
@@ -65,9 +82,7 @@ module.exports = {
             return fetch(`${baseUrl}/comments/${id}`, {
                 method: 'PATCH',
                 body: comment,
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })
             .then(res => res.json());
         },
@@ -85,9 +100,7 @@ module.exports = {
             return fetch(`${baseUrl}/posts`, {
                 method: 'POST',
                 body: newPost,
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })
             .then(res => res.json());
         },
@@ -97,15 +110,41 @@ module.exports = {
             return fetch(`${baseUrl}/posts/${id}`, {
                 method: 'PATCH',
                 body: post,
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
+                headers: { "Content-type": "application/json; charset=UTF-8" }
             })
             .then(res => res.json());
         },
         deletePost: async (parent, args) => {
             const { id } = args;
             return fetch(`${baseUrl}/posts/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json());
+        },
+
+        createTodo: async (parent, args) => {
+            const {userId, title, completed} = args;
+            const newTodo = JSON.stringify({userId, title, completed});
+            return fetch(`${baseUrl}/todos`, {
+                method: 'POST',
+                body: newTodo,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(res => res.json());
+        },
+        updateTodo: async (parent, args) => {
+            const { id, title, completed } = args;
+            const post = JSON.stringify({ title, completed });
+            return fetch(`${baseUrl}/todos/${id}`, {
+                method: 'PATCH',
+                body: post,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            })
+            .then(res => res.json());
+        },
+        deleteTodo: async (parent, args) => {
+            const { id } = args;
+            return fetch(`${baseUrl}/todos/${id}`, {
                 method: 'DELETE'
             })
             .then(res => res.json());

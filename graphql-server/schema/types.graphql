@@ -1,6 +1,7 @@
 # import User Address Geo Company from "./user.graphql"
 # import Post from "./post.graphql"
 # import Comment from "./comment.graphql"
+# import Todo from "./todo.graphql"
 
 type Query {
     users: [User!]!
@@ -8,6 +9,8 @@ type Query {
 
     posts: [Post!]!
     post(id: ID!): Post
+
+    todosByUser(userId: ID!, completed: Boolean, limit: Int): [Todo]
 }
 
 type Mutation {
@@ -18,6 +21,10 @@ type Mutation {
     createPost(userId: ID!, title: String!, body: String): Post
     updatePost(id: ID!, title: String!, body: String!): Post
     deletePost(id: ID!): Post
+
+    createTodo(userId: ID!, title: String!, completed: Boolean): Todo
+    updateTodo(id: ID!, title: String, completed: Boolean): Todo
+    deleteTodo(id: ID!): Todo
 }
 
 type Subscription {
