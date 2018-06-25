@@ -21,7 +21,7 @@ module.exports = {
             return dataLoader.load(`users/${user.id}/posts`);
         },
         todos: async (user, args) => {
-            const {userId, completed} = args;
+            const {completed} = args;
             let todos = await dataLoader.load(`users/${user.id}/todos`);
             if (completed !== undefined) {
                 return todos.filter(td => td.completed === completed);
