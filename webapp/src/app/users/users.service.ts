@@ -37,7 +37,7 @@ export class UsersService {
                 switchMap(usr => {
                     return this.http
                     .get<any>(`${this.baseUrl}/users/${usr.id}/todos`)
-                    .pipe(map(todos => ({...usr, todos: todos.filter(todo => todo.completed === true)})));
+                    .pipe(map(todos => ({...usr, todos: todos.filter(todo => todo.completed === false)})));
                 })
             );
     }
@@ -55,10 +55,10 @@ export class UsersService {
                     name
                     email
                     posts {
-                        title
+                        id
                     }
-                    todos(completed: true) {
-                        title
+                    todos(completed: false) {
+                        id
                     }
                 }
             }
